@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'whatwg-fetch';
+import axios from 'axios';
 
 class Home extends Component {
   constructor(props) {
@@ -28,49 +28,42 @@ class Home extends Component {
   }
 
   newCounter() {
-    fetch('/api/counters', { method: 'POST' })
-      .then(res => res.json())
-      .then(json => {
-        let data = this.state.counters;
-        data.push(json);
+    axios.post('/api/counters').then(res => {
+      const data = this.state.counters;
+      data.push(res.data);
 
-        this.setState({
-          counters: data
-        });
+      this.setState({
+        counters: data
       });
+    });
   }
 
   incrementCounter(index) {
     const id = this.state.counters[index]._id;
 
-    fetch(`/api/counters/${id}/increment`, { method: 'PUT' })
-      .then(res => res.json())
-      .then(json => {
-        this._modifyCounter(index, json);
-      });
+    axios.put(`/api/counters/${id}/increment`).then(res => {
+      this._modifyCounter(index, res.data);
+    });
   }
 
   decrementCounter(index) {
     const id = this.state.counters[index]._id;
 
-    fetch(`/api/counters/${id}/decrement`, { method: 'PUT' })
-      .then(res => res.json())
-      .then(json => {
-        this._modifyCounter(index, json);
-      });
+    axios.put(`/api/counters/${id}/decrement`).then(res => {
+      this._modifyCounter(index, res.data);
+    });
   }
 
   deleteCounter(index) {
     const id = this.state.counters[index]._id;
 
-    fetch(`/api/counters/${id}`, { method: 'DELETE' })
-      .then(_ => {
-        this._modifyCounter(index, null);
-      });
+    axios.delete(`/api/counters/${id}`).then(() => {
+      this._modifyCounter(index, null);
+    });
   }
 
   _modifyCounter(index, data) {
-    let prevData = this.state.counters;
+    const prevData = this.state.counters;
 
     if (data) {
       prevData[index] = data;
@@ -89,14 +82,14 @@ class Home extends Component {
         <p>Counters:</p>
 
         <ul>
-          { this.state.counters.map((counter, i) => (
+          {this.state.counters.map((counter, i) => (
             <li key={i}>
               <span>{counter.count} </span>
               <button onClick={() => this.incrementCounter(i)}>+</button>
               <button onClick={() => this.decrementCounter(i)}>-</button>
               <button onClick={() => this.deleteCounter(i)}>x</button>
             </li>
-          )) }
+          ))}
         </ul>
 
         <button onClick={this.newCounter}>New counter</button>
