@@ -2,15 +2,15 @@
   "name": "MERN-boilerplate",
   "version": "1.0.0",
   "description": "MERN stack project boilerplate",
-  "author": "Eugene Cheung",
+  "author": "Adrian Darian",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkon/MERN-boilerplate.git"
+    "url": "git+https://github.com/adriandarian/MERN-boilerplate.git"
   },
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "webpack -p --progress --profile --colors && node server",
+    "start": "webpack -p --progress --profile --colors --mode production && NODE_ENV=production node server",
     "start:dev": "node server"
   },
   "engines": {
@@ -20,9 +20,11 @@
     "@babel/core": "^7.0.0-beta.42",
     "@babel/preset-env": "^7.0.0-beta.42",
     "@babel/preset-react": "^7.0.0-beta.42",
+    "async": "^2.6.1",
     "autoprefixer": "^8.2.0",
     "aws-sdk": "^2.228.1",
     "babel-loader": "^8.0.0-beta.2",
+    "bcrypt": "^2.0.1",
     "connect-history-api-fallback": "^1.5.0",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
@@ -32,6 +34,7 @@
     "mongoose": "^5.0.11",
     "node-sass": "^4.7.2",
     "nodemon": "^1.17.2",
+    "npm": "^6.1.0",
     "postcss-loader": "^2.1.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

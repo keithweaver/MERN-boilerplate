@@ -2,9 +2,16 @@
 // More info for setting up credentials for AWS DynamoDB.
 // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SettingUp.DynamoWebService.html
 module.exports = {
-  aws_region: 'us-east-1',
-  aws_dynamodb_table: 'demoTable',
-  endpoint: 'http://localhost:8080'
+  aws_table_name: 'fruitsTable',
+  aws_local_config: {
+    region: 'local',
+    endpoint: 'http://localhost:8000'
+  },
+  aws_remote_config: {
+    accessKeyId: 'INSERT_ACCESS_KEY_ID',
+    secretAccessKey: 'INSET_SECRET_ACCESS_KEY',
+    region: 'us-west-2',
+  }
 };
 
 // A little more about it. After creating a table.
