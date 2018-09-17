@@ -31,3 +31,10 @@ Development (Webpack dev server) mode:
 ```shell
 npm run start:dev
 ```
+
+
+## Redux
+
+Questions about Redux? This comes with a basic Redux setup. It starts by following: https://www.youtube.com/watch?v=DiLVAXlVYR0&list=PL6gx4Cwl9DGBbSLZjvleMwldX8jGgXV6a
+
+The section aspect was adding AXIOS. So API calls can be made through Redux.

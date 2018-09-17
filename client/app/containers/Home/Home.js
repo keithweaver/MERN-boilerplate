@@ -85,7 +85,7 @@ class Home extends Component {
 
   render() {
     return (
-      <>
+      <div>
         <p>Counters:</p>
 
         <ul>
@@ -100,7 +100,7 @@ class Home extends Component {
         </ul>
 
         <button onClick={this.newCounter}>New counter</button>
-      </>
+      </div>
     );
   }
 }
