@@ -82,21 +82,9 @@ module.exports = app => {
   //SignIn
   app.post("/api/account/signin", (req, res, next) => {
     const { body } = req;
-    const { firstName, lastName, password } = body;
+    const { password } = body;
     let { email } = body;
 
-    if (!firstName) {
-      return res.send({
-        success: false,
-        message: "Error: First name cannot be blank."
-      });
-    }
-    if (!lastName) {
-      return res.send({
-        success: false,
-        message: "Error: Last name cannot be blank."
-      });
-    }
     if (!email) {
       return res.send({
         success: false,
@@ -126,7 +114,8 @@ module.exports = app => {
         if (users.length != 1) {
           return res.send({
             success: false,
-            message: "Error: Invalid"
+            message:
+              "Error: This email and password combination doesn't exist. Try again."
           });
         }
 
