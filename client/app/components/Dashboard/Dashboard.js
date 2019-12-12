@@ -8,7 +8,11 @@ const Dashboard = props => {
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>{user}</p>
+      <p>{user.firstName}</p>
+      <p>{user.lastName}</p>
+      <p>{user.email}</p>
+      <p>{user.links}</p>
+
       {console.log("user:", user)}
     </div>
   );

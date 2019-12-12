@@ -4,6 +4,7 @@ import SignUp from "../Registration/SignUp";
 import Dashboard from "../Dashboard/Dashboard";
 import { PromiseProvider } from "mongoose";
 import { UserContext } from "../../context/UserContext";
+import { getFromStorage } from "../../utils/Storage";
 
 const Home = props => {
   let [loading, setLoading] = useState(false);
@@ -15,24 +16,32 @@ const Home = props => {
   //Setting the token
   useEffect(() => {
     const storageToken = localStorage.getItem("token");
-    if (storageToken) {
-      setToken(storageToken);
-      //verify
-      axios.get(`${baseURL}/api/account/verify?token=${token}`).then(json => {
-        console.log("json:", json);
-        if (json.data.success) {
-          setToken(token);
-          console.log("if token:", token);
-          setLoading(false);
-        } else {
-          console.log("if/else token:", token);
-          setLoading(false);
-        }
-      });
-    } else {
-      console.log("else token:", token);
-      setLoading(false);
-    }
+    const headers = { token: storageToken };
+    setToken(storageToken);
+
+    axios
+      .get(`${baseURL}/api/account/getUser`, {
+        headers
+      })
+      .then(res => setUser(res.data))
+      .catch(err => console.log(err));
+
+    // if (storageToken) {
+    //   setToken(storageToken);
+    //   //verify
+    //   axios
+    //     .get(`${baseURL}/api/account/verify?token=${storageToken}`)
+    //     .then(json => {
+    //       if (json.data.success) {
+    //         setToken(storageToken);
+    //         setLoading(false);
+    //       } else {
+    //         setLoading(false);
+    //       }
+    //     });
+    // } else {
+    //   setLoading(false);
+    // }
   }, [loading]);
 
   const logout = () => {

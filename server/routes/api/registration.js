@@ -128,10 +128,12 @@ module.exports = app => {
           });
         }
 
-        //Otherwise correct user
+        //Otherwise it is the correct user
         const userSession = new UserSession();
         userSession.userId = user._id;
         userSession.save((err, doc) => {
+          // console.log("doc:", doc);
+          // console.log("after doc user:", user);
           if (err) {
             return res.send({
               success: false,
@@ -144,7 +146,7 @@ module.exports = app => {
             message: "valid sign in",
             firstName: user.firstName,
             lastName: user.lastName,
-            token: doc._id
+            token: doc.userId
           });
         });
       }
@@ -153,8 +155,9 @@ module.exports = app => {
   //Verify
   app.get("/api/account/verify", (req, res, next) => {
     //Get the token
-    const { query } = req;
-    const { token } = query;
+    const { headers } = req;
+    const { token } = headers;
+    console.log("verify token:", token);
     //?token = test
     //Verify the token is one of a kind and its not deleted
     UserSession.find(
@@ -169,8 +172,7 @@ module.exports = app => {
             message: "Server error"
           });
         }
-        if (sessions.length != 1) {
-          console.log(sessions.length);
+        if (sessions.length != 0) {
           return res.send({
             success: false,
             error: "Already logged in"
@@ -178,7 +180,7 @@ module.exports = app => {
         } else {
           return res.send({
             success: true,
-            message: "Verified password"
+            message: "Authorized user"
           });
         }
       }
@@ -219,16 +221,19 @@ module.exports = app => {
   //Get User Info
   app.get("/api/account/getUser", (req, res, next) => {
     //Get the token
-    console.log("req:", req);
-    const { query } = req;
-    const { token } = query;
+    const { headers } = req;
+    console.log("headers:", headers);
+
+    const { token } = headers;
     //?token = test
     User.find(
       {
         _id: token
       },
       (err, users) => {
+        console.log("users:", users);
         const user = users[0];
+        console.log("user:", user);
         if (err) {
           console.log(err);
           console.log(token);

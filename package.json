@@ -11,7 +11,8 @@
   "private": true,
   "scripts": {
     "start": "webpack -p --progress --profile --colors && node server",
-    "start:dev": "node server"
+    "start:dev": "node server.js",
+    "start:nodemon": "nodemon server.js"
   },
   "engines": {
     "node": ">=6"
@@ -32,7 +33,7 @@
     "html-webpack-plugin": "^3.1.0",
     "mongoose": "^5.0.11",
     "node-sass": "^4.7.2",
-    "nodemon": "^1.17.2",
+    "nodemon": "^2.0.2",
     "postcss-loader": "^2.1.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

@@ -34,8 +34,7 @@ const SignIn = props => {
       )
       .then(res => {
         if (res.data.success) {
-          console.log(res.data);
-          setInStorage("token", res.data.token);
+          localStorage.setItem("token", res.data.token);
           props.history.push("/");
         } else {
           setSignInError(res.data.message), (loading = false);

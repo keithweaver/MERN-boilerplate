@@ -14,6 +14,7 @@ import { UserContext } from "./../../context/UserContext";
 
 const App = () => {
   const [user, setUser] = useState("");
+
   return (
     // <Header />
     <Router>
