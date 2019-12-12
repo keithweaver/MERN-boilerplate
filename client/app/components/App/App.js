@@ -1,16 +1,32 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-const App = ({ children }) => (
-  <>
-    <Header />
+import Home from "./../Home/Home";
+import SignIn from "./../Registration/SignIn";
+import SignUp from "./../Registration/SignUp";
 
-    <main>{children}</main>
+import "./../../styles/styles.scss";
+import { UserContext } from "./../../context/UserContext";
 
-    <Footer />
-  </>
-);
+// import Header from "../Header/Header";
+// import Footer from "../Footer/Footer";
+
+const App = () => {
+  const [user, setUser] = useState("");
+  return (
+    // <Header />
+    <Router>
+      <Switch>
+        <UserContext.Provider value={{ user, setUser }}>
+          <Route exact path="/" component={Home} />
+          <Route path="/signIn" component={SignIn} />
+          <Route path="/signUp" component={SignUp} />
+        </UserContext.Provider>
+      </Switch>
+    </Router>
+    // <Footer />
+  );
+};
 
 export default App;

@@ -34,10 +34,11 @@ const SignIn = props => {
       )
       .then(res => {
         if (res.data.success) {
+          console.log(res.data);
           setInStorage("token", res.data.token);
           props.history.push("/");
         } else {
-          setSignInError(res.data.message)((loading = false));
+          setSignInError(res.data.message), (loading = false);
         }
       })
       .catch(err => {

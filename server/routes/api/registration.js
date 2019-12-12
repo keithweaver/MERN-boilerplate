@@ -63,6 +63,7 @@ module.exports = app => {
         newUser.email = email;
         newUser.firstName = firstName;
         newUser.lastName = lastName;
+        newUser.links = [];
         newUser.password = newUser.generateHash(password);
         newUser.save((err, user) => {
           if (err) {
@@ -141,6 +142,8 @@ module.exports = app => {
           return res.send({
             success: true,
             message: "valid sign in",
+            firstName: user.firstName,
+            lastName: user.lastName,
             token: doc._id
           });
         });
@@ -208,6 +211,34 @@ module.exports = app => {
         return res.send({
           success: true,
           message: "Logged out"
+        });
+      }
+    );
+  });
+
+  //Get User Info
+  app.get("/api/account/getUser", (req, res, next) => {
+    //Get the token
+    console.log("req:", req);
+    const { query } = req;
+    const { token } = query;
+    //?token = test
+    User.find(
+      {
+        _id: token
+      },
+      (err, users) => {
+        const user = users[0];
+        if (err) {
+          console.log(err);
+          console.log(token);
+        }
+
+        return res.send({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          links: user.links
         });
       }
     );

@@ -43,7 +43,14 @@ const SignUp = props => {
           }
         }
       )
-      .then(res => setSignUpError(res.data.message), (loading = false))
+      .then(res => {
+        if (res.data.success) {
+          props.history.push("/signIn");
+        } else {
+          setSignUpError(res.data.message);
+          loading = false;
+        }
+      })
       .catch(err => {
         console.log(err);
       });

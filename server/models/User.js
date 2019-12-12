@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
+  links: {
+    type: Array,
+    default: []
+  },
   isDeleted: {
     type: Boolean,
     default: false
